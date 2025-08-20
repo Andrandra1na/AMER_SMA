@@ -1,0 +1,92 @@
+@startuml diag-cas-d'utilisation
+!theme materia
+
+' =======================================
+'        DIAGRAMME DE CAS D'UTILISATION
+'     Version Corrigée et Fonctionnelle
+' =======================================
+
+' --- Style ---
+skinparam titleFontSize 22
+skinparam captionFontSize 30
+skinparam noteFontSize 15
+skinparam actorFontSize 16
+skinparam usecaseFontSize 22
+skinparam ArrowFontSize 15
+skinparam ArrowColor #005f73
+skinparam ActorBorderColor #005f73
+skinparam UsecaseBorderColor #005f73
+
+title **Diagramme de Cas d'Utilisation - Plateforme d'Analyse d'Entretiens**
+caption Vue fonctionnelle détaillée des interactions utilisateur
+
+left to right direction
+
+' --- Définition des Acteurs ---
+actor Candidat
+actor Recruteur
+actor Administrateur
+
+package "Système" {
+    
+    ' --- On définit les usecases sans alias ---
+    usecase "S'Authentifier"
+    usecase "Gérer son Profil"
+    
+    usecase "Passer un Entretien"
+    usecase "Consulter son Feedback"
+    
+    usecase "Gérer les Sessions d'Entretien"
+    usecase "Consulter un Rapport Détaillé"
+    usecase "Gérer sa Bibliothèque de Questions"
+    
+    usecase "Gérer les Utilisateurs"
+    usecase "Configurer les Profils IA"
+    usecase "Superviser Tout le Contenu"
+    
+    ' --- On définit les usecases techniques séparément ---
+    usecase "Lancer l'Analyse IA" as RunAnalysis
+    usecase "Valider un Rapport" as ValidateReport
+}
+
+' --- Relations Acteur -> Cas d'Utilisation ---
+Candidat -- (Passer un Entretien)
+Candidat -- (Consulter son Feedback)
+Candidat -- (Gérer son Profil)
+Candidat -- (S'Authentifier)
+
+Recruteur -- (Gérer les Sessions d'Entretien)
+Recruteur -- (Consulter un Rapport Détaillé)
+Recruteur -- (Gérer sa Bibliothèque de Questions)
+Recruteur -- (Gérer son Profil)
+Recruteur -- (S'Authentifier)
+
+Administrateur -- (Gérer les Utilisateurs)
+Administrateur -- (Configurer les Profils IA)
+Administrateur -- (Superviser Tout le Contenu)
+Administrateur -- (Gérer son Profil)
+Administrateur -- (S'Authentifier)
+
+' --- Relations de dépendance (<<include>>) ---
+' On lie les cas d'utilisation par leur nom complet entre parenthèses
+(Passer un Entretien) ..> (S'Authentifier) : <<include>>
+(Consulter son Feedback) ..> (S'Authentifier) : <<include>>
+(Gérer les Sessions d'Entretien) ..> (S'Authentifier) : <<include>>
+(Consulter un Rapport Détaillé) ..> (S'Authentifier) : <<include>>
+(Gérer sa Bibliothèque de Questions) ..> (S'Authentifier) : <<include>>
+(Gérer les Utilisateurs) ..> (S'Authentifier) : <<include>>
+(Configurer les Profils IA) ..> (S'Authentifier) : <<include>>
+(Superviser Tout le Contenu) ..> (S'Authentifier) : <<include>>
+
+' --- Relations logiques ---
+(Consulter un Rapport Détaillé) ..> RunAnalysis : <<include>>
+ValidateReport .> (Consulter un Rapport Détaillé) : <<extend>>
+
+' --- Notes explicatives ---
+note "Ce cas d'utilisation inclut\n- Créer une session\n- Suivre le statut" as N1
+(Gérer les Sessions d'Entretien) .. N1
+
+note "Ce cas d'utilisation inclut\n- Voir l'historique\n- Accéder à la relecture vidéo" as N2
+(Consulter son Feedback) .. N2
+
+@enduml

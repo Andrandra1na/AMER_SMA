@@ -1,0 +1,63 @@
+@startuml Diag-Séquence - Création d'une Session d'Entretien par un Recruteur
+!theme materia
+
+skinparam DefaultFontSize 40
+skinparam TitleFontSize 55
+skinparam CaptionFontSize 50
+skinparam NoteFontSize 50
+skinparam ActorFontSize 50
+skinparam UsecaseFontSize 50
+
+title **Diagramme de Séquence - Création d'une Session par un Recruteur**
+
+autonumber "<b>[0]"
+skinparam sequence {
+    ActorBorderColor #005f73
+    ParticipantBorderColor #005f73
+    LifeLineBorderColor #0a9396
+    ArrowColor #212529
+    GroupHeaderFontColor #005f73
+}
+
+actor Recruteur as R
+participant "Frontend\n(CreateSessionView.vue)" as FE
+participant "API Web\n(Flask)" as BE
+participant "Service\n(session_service.py)" as Service
+database "Base de Données\n(PostgreSQL)" as DB
+
+R -> FE: Remplit le formulaire (candidat, poste, profil)
+R -> FE: Clique sur "Créer la session"
+activate FE
+
+FE -> BE: POST /api/session/create
+activate BE
+
+BE -> Service: create_session_for_recruiter(data)
+activate Service
+
+Service -> Service: select_questions_for_session()
+activate Service #LightSkyBlue
+
+Service -> DB: SELECT * FROM Questions WHERE (...)
+activate DB
+DB --> Service: Liste de questions pertinentes
+deactivate DB
+Service --> Service: Sélectionne 5 questions au hasard
+deactivate Service
+
+Service -> DB: INSERT INTO Sessions (user_id, recruteur_id, profil_id, questions_ids, ...)
+activate DB
+DB --> Service: Nouvelle Session (avec son ID)
+deactivate DB
+
+Service --> BE: Session créée
+deactivate Service
+
+BE --> FE: **201 Created** (avec ID de la session)
+deactivate BE
+
+FE -> R: Affiche "Session créée avec succès"
+FE -> R: Redirige vers le Dashboard
+deactivate FE
+
+@enduml
