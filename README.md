@@ -1,0 +1,1 @@
+# AMER_SMA
