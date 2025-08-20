@@ -1,0 +1,28 @@
+# Fichiers de cache et dépendances Python
+__pycache__/
+*.pyc
+env/
+venv/
+.idea/
+.vscode/
+*.egg-info/
+
+# Fichiers de base de données et de données générées
+/instance/
+/backend/data/uploads/
+/backend/data/tests/
+/backend/data/vector_db/
+# NE JAMAIS VERSIONNER LES FICHIERS DE DATASETS LOURDS
+# /backend/data/datasets/
+/backend/models/*.h5
+/backend/models/*.joblib
+*.db
+
+# Fichiers de dépendances Frontend
+/frontend/node_modules/
+/frontend/dist/
+/frontend/.vite/
+
+# Fichiers de log et de système
+*.log
+.DS_Store
