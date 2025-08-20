@@ -1,0 +1,144 @@
+
+---------------------------------------------------------------------------------
+
+TEST SEMAINE 1 - MERCREDI 9 JUILLET 2025
+
+---------------------------------------------------------------------------------
+
+
+Testez avec Postman (comme prévu dans votre plan) :
+
+Test de Connexion (Succès)
+
+Méthode : POST
+
+URL : http://localhost:5000/api/login
+
+Body -> raw -> JSON :
+
+Generated json
+{
+    "email": "recruteur@example.com",
+    "password": "recruteur123"
+}
+
+Réponse attendue (200 OK) :
+
+Generated json
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc1MjA3MTM2OSwianRpI
+                    joiZjE1NTZlNmItOGI4Zi00YWU3LWIxMDUtMmNhMDU2NGNhNmUxIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InVz
+                    ZXIxLnRlc3RAZW1haWwuY29tIiwibmJmIjoxNzUyMDcxMzY5LCJjc3JmIjoiZThiYzBlZDgtYzlkZi00Mjk1LWI
+                    zNWUtMjVhZmZlNDRhYWU0IiwiZXhwIjoxNzUyMDcyMjY5LCJ1c2VyX2lkIjo1LCJub20iOiJ1c2VyMSIsInJvbG
+                    UiOiJjYW5kaWRhdCJ9.ZcThJxWYS1tBmeUS6Lw8fxk9lOf4d352fSow_UeFdNw",
+  "user_info": {
+    "nom": "Lionel",
+    "role": "candidat",
+    "user_id": 4
+  }
+}
+
+-------------------------------------------------------------------------------------
+Test de Connexion (Échec)
+
+Méthode : POST
+
+URL : http://localhost:5000/api/login
+
+Body -> raw -> JSON :
+
+Generated json
+{
+    "email": "recruteur@example.com",
+    "password": "mauvaismotdepasse"
+}
+
+
+Réponse attendue (401 Unauthorized) :
+
+Generated json
+{
+    "msg": "Email ou mot de passe incorrect."
+}
+
+---------------------------------------------------------------------------------------------
+Test d'Inscription (Succès)
+
+Méthode : POST
+
+URL : http://localhost:5000/api/register
+
+Body -> raw -> JSON :
+
+Generated json
+{
+    "nom": "Nouveau Candidat",
+    "email": "candidat.test@email.com",
+    "password": "unmotdepassesecurise"
+}
+
+
+Réponse attendue (201 Created) :
+
+Generated json
+{
+    "msg": "Utilisateur 'Nouveau Candidat' créé avec succès."
+}
+
+
+------------------------------------------------------------------------------
+
+TEST SEMAINE 1 - 10 Juillet 2025
+
+------------------------------------------------------------------------------
+
+Étape 5 : Test avec Postman
+
+Lancez ou redémarrez votre serveur python run.py.
+
+Test 1 : Se connecter
+Faites une requête POST /api/login avec un utilisateur (ex: le candidat jean.dupont@example.com) pour 
+obtenir un access_token. Copiez ce token.
+
+
+Test 2 : Créer une session
+Méthode : POST
+URL : http://localhost:5000/api/session/start
+Authorization -> Type : Bearer Token -> Token : (collez le token de l'étape 1)
+Réponse attendue (201 Created) :
+
+Generated json
+{
+    "msg": "Session créée avec succès",
+    "session_id": 1 // ou un autre numéro
+}
+
+
+Notez cet session_id.
+
+
+Test 3 : Uploader un fichier pour cette session
+Méthode : POST
+
+URL : http://localhost:5000/api/upload/1 (remplacez 1 par le session_id de l'étape 2)
+
+Authorization -> Type : Bearer Token -> Token : (collez le même token)
+
+Body -> form-data (PAS raw/JSON)
+
+Dans la ligne, pour la KEY, tapez file.
+
+Changez le type de Text à File dans le menu déroulant à droite.
+
+Pour la VALUE, cliquez sur "Select Files" et choisissez un petit fichier .mp4 ou .mp3 de votre ordinateur.
+Réponse attendue (200 OK) :
+Generated json
+{
+    "msg": "Fichier uploadé avec succès.",
+    "session_id": 1,
+    "file_path": "data/uploads/3/d8f7a6b4..._mon-test.mp4"
+}
+
+Après ce test, vous devriez voir un nouveau dossier dans backend/data/uploads/ (nommé avec l'ID 
+de votre utilisateur) contenant votre fichier avec un nom unique. Si vous regardez la table sessions 
+dans pgAdmin4, la ligne de la session aura bien le fichier_video ou fichier_audio mis à jour.

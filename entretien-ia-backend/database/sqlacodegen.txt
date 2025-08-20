@@ -1,0 +1,1 @@
+sqlacodegen postgresql://lionel:azerty123456@localhost:5432/lionel > /home/andrandraina/Documents/AMER_SMA_IA/entretien-ia-backend/database/models.py
