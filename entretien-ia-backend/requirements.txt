@@ -1,0 +1,76 @@
+# ---------------- Flask & Extensions ----------------
+Flask
+flask-cors
+Flask-JWT-Extended
+Flask-SQLAlchemy
+Flask-Bcrypt
+python-dotenv
+Werkzeug
+pytest-flask
+pytest
+pytest-json-report
+pytest-html
+
+# ---------------- PyTorch CPU Only ----------------
+torch==2.7.0+cpu
+torchvision==0.22.0+cpu
+torchaudio==2.7.0+cpu
+silero-vad
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+# ---------------- Audio / Transcription ----------------
+openai-whisper
+faster-whisper
+librosa
+pyaudio
+soundfile
+scipy
+
+# ---------------- IA / NLP / ML ----------------
+language-tool-python
+scikit-learn
+sentence-transformers
+keras
+scikit-learn
+joblib
+tqdm
+seaborn
+matplotlib
+tensorflow-cpu==2.17.0
+audiomentations==0.42.0
+numpy==1.26.4
+ml-dtypes==0.4.0
+jax==0.4.25
+jaxlib==0.4.25
+pandas
+openpyxl 
+
+
+# ---------------- PDF / Documents ----------------
+WeasyPrint
+
+# ---------------- Backend Task Queue ----------------
+celery
+redis
+
+# ---------------- Uploads / API ----------------
+python-multipart
+
+# ---------------- Divers utils ----------------
+mediapipe
+statsmodels
+plotly
+pillow
+
+# ---------------- Database Drivers ----------------
+mysql-connector-python
+pymysql
+psycopg2-binary
+sqlacodegen
+
+
+# Pour RAG avec LangChain
+langchain
+langchain-community
+langchain-huggingface 
+faiss-cpu # Base de données vectorielle
