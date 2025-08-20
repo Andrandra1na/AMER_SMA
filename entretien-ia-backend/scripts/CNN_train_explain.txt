@@ -1,0 +1,194 @@
+
+
+2. Phase d'Extraction des Données
+Generated code
+Extraction des Features: 100%|...| 1440/1440 [03:48<00:00,  6.30it/s]
+Total de 2880 échantillons (originaux + augmentés).
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+IGNORE_WHEN_COPYING_END
+
+Signification : Votre script a bien parcouru les 1440 fichiers audio du dataset. Pour chaque fichier, 
+il a créé une version "augmentée" (avec du bruit, un pitch différent, etc.), doublant ainsi votre base 
+de données d'entraînement pour arriver à 2880 "images" de spectrogrammes.
+
+Pour la soutenance : "Pour éviter le sur-apprentissage et rendre le modèle plus robuste, j'ai implémenté 
+une technique de Data Augmentation, doublant artificiellement la taille de notre dataset pour atteindre 
+près de 3000 échantillons, ce qui est crucial pour l'entraînement d'un réseau de neurones."
+
+3. Phase d'Entraînement (Les Époques)
+Generated code
+Epoch 1/100
+72/72 ... accuracy: 0.2348 ... val_accuracy: 0.1267
+...
+Epoch 35/100
+72/72 ... accuracy: 0.9703 ... val_accuracy: 0.7569
+...
+Epoch 48/100
+72/72 ... (l'entraînement s'est arrêté ici grâce à EarlyStopping)
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+IGNORE_WHEN_COPYING_END
+
+Signification : C'est le cœur de l'apprentissage.
+
+accuracy (bleu sur votre graphique) : C'est la précision du modèle sur les données qu'il est en train 
+d'apprendre. Elle monte très haut (plus de 97%), ce qui est normal. Le modèle "mémorise" parfaitement 
+ce qu'on lui montre.
+
+val_accuracy (orange sur votre graphique) : C'est la métrique la plus importante. C'est la précision 
+du modèle sur un jeu de données de validation qu'il n'a jamais vu pendant son apprentissage. C'est le 
+vrai indicateur de sa capacité à généraliser.
+
+Votre graphique "Précision du Modèle" est parfait : Il montre que accuracy monte en flèche, tandis que 
+val_accuracy augmente rapidement au début puis stagne autour de 75%. Le léger écart entre les deux courbes
+ indique un peu de sur-apprentissage (overfitting), ce qui est tout à fait normal et attendu.
+
+EarlyStopping a fonctionné : L'entraînement s'est arrêté à l'époque 48 car la val_accuracy n'a pas 
+progressé significativement pendant 15 époques. Le modèle a automatiquement restauré les poids de la 
+meilleure époque (environ l'époque 35, où la val_accuracy a atteint son pic de ~76%).
+
+4. Phase d'Évaluation Finale (Les Résultats Chiffrés)
+Generated code
+--- RAPPORT D'ÉVALUATION FINAL DU MODÈLE CNN ---
+
+Précision finale sur l'ensemble de test : 75.87%
+
+--- Rapport de Classification Détaillé ---
+              precision    recall  f1-score   support
+       calme       0.79      0.79      0.79        77
+      colère       0.77      0.86      0.81        77
+      dégoût       0.73      0.86      0.79        77
+     heureux       0.69      0.58      0.63        77
+      neutre       0.72      0.55      0.63        38
+        peur       0.78      0.79      0.79        77
+     surpris       0.82      0.88      0.85        77
+      triste       0.73      0.64      0.69        76
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+IGNORE_WHEN_COPYING_END
+
+Précision finale de 75.87% : C'est un EXCELLENT résultat. Vous avez amélioré le score de près de 20 points 
+par rapport au modèle RandomForest. C'est une réussite majeure.
+
+Rapport de classification :
+
+precision : Quand le modèle prédit "colère", il a raison 77% du temps.
+
+recall : Le modèle réussit à trouver 86% de tous les vrais échantillons de "colère".
+
+f1-score : C'est la moyenne harmonique des deux, le meilleur indicateur global.
+
+Analyse :
+
+Meilleures classes : surpris (F1=0.85) et colère (F1=0.81) sont extrêmement bien détectées.
+
+Classes les plus faibles : heureux et neutre (F1=0.63) restent les plus difficiles, mais avec des scores 
+bien meilleurs qu'avant. C'est normal, car une voix "neutre" peut acoustiquement ressembler à une voix 
+"calme" ou "triste".
+
+
+
+
+**************************************************************************************************
+
+
+Image 1 : Courbes d'Apprentissage (Précision et Perte)
+
+Cette image contient deux graphiques qui montrent l'évolution du modèle à chaque "époque" (une passe 
+complète sur les données d'entraînement).
+
+Graphique de Gauche : Précision du Modèle (accuracy)
+
+Ce qu'il montre : À quel point le modèle fait de bonnes prédictions. Plus la courbe est haute, mieux c'est.
+
+Courbe Bleue (Précision Entraînement) : C'est la performance du modèle sur les données qu'il est en train
+ d'apprendre. On voit qu'elle grimpe très vite et atteint presque 100% (proche de 0.98). C'est normal : 
+ le modèle devient un "expert" des données qu'on lui montre en boucle. Il les mémorise.
+
+Courbe Orange (Précision Validation) : C'est la courbe la plus importante. Elle montre la performance 
+du modèle sur des données qu'il n'a jamais vues pendant l'entraînement. C'est le vrai test de son 
+intelligence et de sa capacité à généraliser. On voit qu'elle augmente rapidement au début, 
+puis elle stagne autour de 0.75 (75%).
+
+L'écart entre les deux courbes : L'espace entre la courbe bleue et la courbe orange représente le 
+sur-apprentissage (overfitting). C'est le phénomène où le modèle apprend "par cœur" les données 
+d'entraînement mais a un peu plus de mal à appliquer ses connaissances à de nouveaux exemples. 
+Un léger écart comme celui-ci est tout à fait normal et acceptable.
+
+Graphique de Droite : Perte du Modèle (loss)
+
+Ce qu'il montre : L'ampleur des erreurs du modèle. Plus la courbe est basse, mieux c'est. C'est 
+l'inverse de la précision.
+
+Courbe Bleue (Perte Entraînement) : L'erreur sur les données d'entraînement diminue très vite et 
+tend vers 0. Le modèle fait de moins en moins d'erreurs sur ce qu'il connaît.
+
+Courbe Orange (Perte Validation) : L'erreur sur les nouvelles données diminue aussi très vite au début, 
+puis se stabilise à un certain niveau (autour de 0.8). C'est le "plancher" d'erreur que le modèle atteint.
+
+Commentaire : La forme de ces deux courbes est idéale. Elles montrent un apprentissage rapide et une 
+stabilisation, sans divergence (où la perte de validation recommencerait à augmenter, signe d'un 
+sur-apprentissage sévère).
+
+Conclusion des Courbes d'Apprentissage :
+
+"Les courbes d'apprentissage démontrent un processus d'entraînement réussi. Le modèle apprend rapidement, 
+comme l'indique la chute de la courbe de perte et l'augmentation de la précision. Il atteint une 
+performance stable sur les données de validation autour de 75% après environ 35 époques, moment où 
+le mécanisme d'Early Stopping a interrompu l'entraînement pour retenir le meilleur modèle et éviter un 
+sur-apprentissage excessif."
+
+Image 2 : Matrice de Confusion
+
+Cette matrice est une "photographie" détaillée de la performance finale du modèle. Elle répond à la 
+question : "Quand le modèle se trompe, quelles erreurs fait-il ?".
+
+Comment la lire :
+
+Les Lignes (Axe Y - Vraie Étiquette) : C'est la vérité. Par exemple, la ligne "triste" représente tous 
+les échantillons qui étaient réellement tristes.
+
+Les Colonnes (Axe X - Étiquette Prédite) : C'est la prédiction du modèle.
+
+La Diagonale (en bleu foncé) : Ce sont les bonnes réponses. Le chiffre dans la case (calme, calme) est 61, 
+ce qui signifie que 61 échantillons "calmes" ont été correctement prédits comme "calmes". 
+Plus cette diagonale est lumineuse et contient des chiffres élevés, meilleur est le modèle.
+
+Analyse des Résultats :
+
+Points Forts (Grandes valeurs sur la diagonale) :
+
+Le modèle est excellent pour identifier colère (66 bonnes prédictions), dégoût (66), peur (61) et 
+surtout surpris (68). Ces émotions ont des signatures acoustiques très distinctes que le modèle a bien 
+apprises.
+
+Points Faibles (Grandes valeurs hors de la diagonale) :
+
+Confusion majeure triste -> calme : Regardez la ligne triste. Le modèle a prédit correctement 49 fois, 
+mais il a prédit calme 6 fois et heureux 6 fois. Cela signifie qu'une voix triste est parfois interprétée 
+comme calme, ce qui est une confusion très logique et humaine.
+
+Confusion neutre -> calme : Regardez la ligne neutre. Le modèle n'a correctement prédit que 21 fois. 
+Sa plus grosse erreur est de prédire calme (6 fois) et heureux (5 fois). Encore une fois, c'est une 
+confusion classique car une voix neutre n'a pas de caractéristiques fortes et peut ressembler à beaucoup 
+d'autres états.
+
+Confusion heureux -> peur et surpris : Sur la ligne heureux, le modèle confond parfois avec peur (7 fois) 
+et surpris (13 fois). Cela s'explique par le fait que ces trois émotions peuvent avoir une hauteur de voix 
+(pitch) élevée et une grande énergie.
+
+Conclusion de la Matrice de Confusion :
+
+"La matrice de confusion confirme la précision globale de 76%. Elle met en évidence les forces du modèle,
+ notamment sa capacité à distinguer sans ambiguïté des émotions comme la surprise et la colère. Elle révèle
+  également des zones de confusion prévisibles, telles que la distinction fine entre 'triste' et 'calme', 
+  ou 'neutre' et 'heureux', qui représentent des défis même pour un auditeur humain. Ces résultats valident
+   la pertinence du modèle pour une utilisation dans notre plateforme, tout en identifiant des axes 
+   d'amélioration futurs."
