@@ -42,7 +42,7 @@ L'objectif de ce projet est de concevoir et développer une plateforme web innov
 
 L'application est conçue sur une architecture **three-tier** (trois tiers) découplée, avec un système de traitement asynchrone pour les tâches lourdes.
 
-![Diagramme de Composants](diagrammes/composants.png)
+![Diagramme de Composants](out/diagramme UML/Diagramme de Composant/Diag-composant- Architecture Log/Diag-composant- Architecture Log.png)
 *(Note: Assurez-vous d'exporter votre diagramme de composants en PNG dans le dossier `diagrammes/`)*
 
 ### 3.2. Stack Technologique
