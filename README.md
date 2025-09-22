@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-Projet de fin d'études pour le Master 2 [Nom de votre Master], réalisé par [Votre Nom].
+Projet de fin d'études pour le Master 2 - Informatique appliqué à la gestion d'Entreprise, réalisé par Andrandraina.
 
 ## 📖 Table des Matières
 
