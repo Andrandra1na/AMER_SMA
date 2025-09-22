@@ -141,6 +141,5 @@ L'application sera accessible à l'adresse `http://localhost:5173`.
 
 ## 6. Captures d'Écran
 
-*(Insérez ici 2-3 de vos plus belles captures d'écran, comme le Rapport Recruteur ou le Dashboard Admin)*
-
-![Dashboard Admin](lien_vers_votre_image.png)
+![Dashboard Recruteur](lien_vers_votre_image.png)<img width="1276" height="2027" alt="ReportView2" src="https://github.com/user-attachments/assets/74c33ea2-722a-4b2d-bc00-d62579254e9f" />
+<img width="1351" height="2079" alt="ReportView1" src="https://github.com/user-attachments/assets/e44e1b84-1909-4720-b019-92ef8105bd5b" />
